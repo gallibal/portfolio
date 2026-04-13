@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import WorldMap from "./components/WorldMap";
 import Hobbies from "./components/Hobbies";
 import WorkExperience from "./components/WorkExperience";
 import AboutMe from "./components/AboutMe";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type CircleCategory = {
   id: string;
@@ -71,7 +72,54 @@ const categories: CircleCategory[] = [
 
 export default function Home() {
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const [senderName, setSenderName] = useState("");
+  const [senderMessage, setSenderMessage] = useState("");
+  const [runawayPos, setRunawayPos] = useState({ left: 16, top: 0 });
+  const catAudioRef = useRef<HTMLAudioElement | null>(null);
   const activeCategory = categories.find((item) => item.id === activeCategoryId);
+
+  const handleSendMessage = () => {
+    const subject = encodeURIComponent(`Message from ${senderName || "a visitor"}`);
+    const body = encodeURIComponent(
+      senderMessage || "Hi Gal, I wanted to leave you a message."
+    );
+    window.location.href = `mailto:gallibal18@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const moveRunawayButton = () => {
+    const buttonWidth = 180;
+    const buttonHeight = 48;
+    const margin = 16;
+    const maxLeft = Math.max(margin, window.innerWidth - buttonWidth - margin);
+    const maxTop = Math.max(margin, window.innerHeight - buttonHeight - margin);
+    const left = Math.floor(Math.random() * (maxLeft - margin + 1)) + margin;
+    const top = Math.floor(Math.random() * (maxTop - margin + 1)) + margin;
+    setRunawayPos({ left, top });
+  };
+
+  const playCatSound = () => {
+    if (!catAudioRef.current) {
+      catAudioRef.current = new Audio(
+        "https://upload.wikimedia.org/wikipedia/commons/2/21/Cat_Meow_2.ogg"
+      );
+      catAudioRef.current.volume = 1;
+    }
+
+    const audio = catAudioRef.current;
+    audio.currentTime = 0;
+    audio.volume = 1;
+
+    audio.play().catch(() => {
+      // Fallback if remote audio format/source isn't supported in this browser.
+      const utterance = new SpeechSynthesisUtterance("Meow");
+      utterance.volume = 1;
+      utterance.rate = 0.95;
+      utterance.pitch = 1.4;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    });
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#030712] text-zinc-100">
@@ -151,6 +199,24 @@ export default function Home() {
               transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
             />
             <div className="pointer-events-none absolute inset-[46%] rounded-full border border-cyan-300/20 bg-cyan-200/5 shadow-[0_0_90px_-24px_rgba(34,211,238,0.5)]" />
+            <motion.button
+              type="button"
+              onClick={() => setIsMessageOpen(true)}
+              className="absolute left-1/2 top-1/2 z-20 text-4xl drop-shadow-[0_0_14px_rgba(255,255,255,0.45)] transition hover:scale-110"
+              animate={{
+                x: [0, 120, 0, -120, 0],
+                y: [-120, 0, 120, 0, -120],
+                rotate: [-8, 6, -6, 8, -8],
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              aria-label="Leave a message"
+            >
+              🕊️
+            </motion.button>
             {categories.map((category, index) => (
               <motion.button
                 key={category.id}
@@ -265,6 +331,82 @@ export default function Home() {
           </AnimatePresence>
         </section>
       </main>
+
+      <button
+        type="button"
+        onClick={playCatSound}
+        className="fixed top-1/2 right-4 z-40 -translate-y-1/2 cursor-pointer bg-transparent p-0 transition hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/50"
+        aria-label="Cow that plays cat sound"
+      >
+        <span className="text-5xl leading-none">🐄</span>
+      </button>
+
+      <AnimatePresence>
+        {isMessageOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 16, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="w-full max-w-md rounded-2xl border border-zinc-600/70 bg-zinc-900/95 p-5 shadow-2xl"
+            >
+              <h3 className="text-lg font-semibold text-white">Leave me a message</h3>
+              <p className="mt-1 text-xs text-zinc-400">
+                Your message will open in your email app.
+              </p>
+              <input
+                type="text"
+                value={senderName}
+                onChange={(event) => setSenderName(event.target.value)}
+                placeholder="Your name"
+                className="mt-4 w-full rounded-lg border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-cyan-300/60"
+              />
+              <textarea
+                value={senderMessage}
+                onChange={(event) => setSenderMessage(event.target.value)}
+                placeholder="Write your message..."
+                rows={4}
+                className="mt-3 w-full resize-none rounded-lg border border-zinc-700 bg-zinc-950/80 px-3 py-2 text-sm text-zinc-100 outline-none placeholder:text-zinc-500 focus:border-cyan-300/60"
+              />
+              <div className="mt-4 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsMessageOpen(false)}
+                  className="rounded-full border border-zinc-600 px-4 py-2 text-xs font-medium text-zinc-300 transition hover:bg-zinc-800"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSendMessage}
+                  className="rounded-full border border-cyan-300/60 bg-cyan-400/15 px-4 py-2 text-xs font-medium text-cyan-100 transition hover:bg-cyan-400/25"
+                >
+                  Send
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.button
+        type="button"
+        onMouseEnter={moveRunawayButton}
+        onMouseDown={moveRunawayButton}
+        onFocus={moveRunawayButton}
+        animate={{ left: runawayPos.left, top: runawayPos.top }}
+        transition={{ type: "spring", stiffness: 420, damping: 20 }}
+        initial={{ left: 16, top: "82vh" }}
+        className="fixed z-50 rounded-full border border-rose-300/60 bg-rose-400/15 px-4 py-2 text-xs font-semibold text-rose-100 shadow-[0_0_24px_-10px_rgba(251,113,133,0.9)] backdrop-blur-md"
+      >
+        My disatvetage
+      </motion.button>
     </div>
   );
 }
