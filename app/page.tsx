@@ -1,64 +1,269 @@
-import Image from "next/image";
+"use client";
+
+import WorldMap from "./components/WorldMap";
+import Hobbies from "./components/Hobbies";
+import WorkExperience from "./components/WorkExperience";
+import AboutMe from "./components/AboutMe";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+
+type CircleCategory = {
+  id: string;
+  title: string;
+  preview: string;
+  content: string;
+  desktopPosition: string;
+  toneClass: string;
+};
+
+const categories: CircleCategory[] = [
+  {
+    id: "countries",
+    title: "Countries I've been to",
+    preview: "Places and memories",
+    content:
+      "Placeholder: Add a short travel story, favorite destinations, and a few memorable moments from different countries.",
+    desktopPosition: "top-[3%] left-1/2 -translate-x-1/2",
+    toneClass:
+      "from-sky-500/30 via-indigo-500/10 to-slate-950 border-sky-300/30 hover:border-sky-200/70",
+  },
+  {
+    id: "hobbies",
+    title: "Hobbies",
+    preview: "What I enjoy outside work",
+    content:
+      "Placeholder: Share your hobbies here, such as fitness, gaming, photography, music, reading, or side coding projects.",
+    desktopPosition: "top-[26%] right-[2%]",
+    toneClass:
+      "from-fuchsia-500/30 via-violet-500/10 to-slate-950 border-fuchsia-300/30 hover:border-fuchsia-200/70",
+  },
+  {
+    id: "volunteering",
+    title: "Volunteering",
+    preview: "Community and impact",
+    content:
+      "Placeholder: Highlight causes you support, volunteer roles, and what meaningful contribution looks like for you.",
+    desktopPosition: "bottom-[1%] right-[19%]",
+    toneClass:
+      "from-emerald-500/30 via-cyan-500/10 to-slate-950 border-emerald-300/30 hover:border-emerald-200/70",
+  },
+  {
+    id: "about",
+    title: "About Me",
+    preview: "Quick personal intro",
+    content:
+      "From Moshav Yashresh to the energy of Tel Aviv, my journey has always been about growth, challenge, and purpose. Today, I am in my third year of Computer Science at The Academic College of Tel Aviv-Yaffo, where I get to do what I love most: build, solve, and keep learning every day. My passion for tech comes from the same mindset that shaped me long before code. Between 2018 and 2021, I served in the IDF Search and Rescue combat unit, where I led and trained a squad in high-pressure conditions, managed logistics operations worth over 4 million NIS, and contributed to a leadership forum focused on optimization and logistics. I also received the highest sociometric score for commander potential during training. That experience taught me to stay sharp under pressure, lead with responsibility, and always look for smarter ways to improve systems. Now, I bring that same discipline and curiosity into tech, turning complex problems into clear, practical solutions.",
+    desktopPosition: "bottom-[1%] left-[19%]",
+    toneClass:
+      "from-violet-500/30 via-indigo-500/10 to-slate-950 border-violet-300/30 hover:border-violet-200/70",
+  },
+  {
+    id: "work",
+    title: "Work Experience",
+    preview: "Professional journey",
+    content:
+      "Placeholder: Add your role details, responsibilities, and what you've learned across your work experience.",
+    desktopPosition: "top-[26%] left-[2%]",
+    toneClass:
+      "from-amber-500/30 via-orange-500/10 to-slate-950 border-amber-300/30 hover:border-amber-200/70",
+  },
+];
 
 export default function Home() {
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const activeCategory = categories.find((item) => item.id === activeCategoryId);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="relative min-h-screen overflow-hidden bg-[#030712] text-zinc-100">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-8%,rgba(56,189,248,0.22),transparent_34%),radial-gradient(circle_at_5%_75%,rgba(99,102,241,0.24),transparent_36%),radial-gradient(circle_at_96%_72%,rgba(217,70,239,0.18),transparent_36%),linear-gradient(to_bottom,rgba(2,6,23,0.92),rgba(2,6,23,1))]" />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-[20%] h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"
+        animate={{ x: [0, 18, -8, 0], y: [0, -10, 6, 0], opacity: [0.2, 0.35, 0.22, 0.2] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute bottom-[-6rem] right-[10%] h-80 w-80 rounded-full bg-indigo-500/20 blur-3xl"
+        animate={{ x: [0, -16, 10, 0], y: [0, 8, -6, 0], opacity: [0.2, 0.32, 0.24, 0.2] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute top-[38%] right-[26%] h-44 w-44 rounded-full bg-fuchsia-400/15 blur-3xl"
+        animate={{ x: [0, 10, -12, 0], y: [0, -8, 4, 0], opacity: [0.14, 0.24, 0.16, 0.14] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-6 py-10">
+        <motion.header
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-8 text-center sm:mb-10"
+        >
+          <h1 className="mt-1 bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-6xl">
+            Gal Libal
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+          <div className="mx-auto mt-4 h-px w-36 bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://github.com/gallibal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
+              GitHub
+            </a>
             <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://www.linkedin.com/in/gal-libal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+              LinkedIn
+            </a>
+            <a
+              href="mailto:gallibal18@gmail.com"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
+            >
+              Email
+            </a>
+          </div>
+        </motion.header>
+
+        <section className="relative w-full max-w-5xl">
+          <div
+            className={`mx-auto hidden aspect-square w-full max-w-[700px] transition-all duration-500 md:block ${
+              activeCategory ? "scale-[0.97] opacity-40 blur-[3px]" : "scale-100 opacity-100"
+            }`}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute inset-[20%] rounded-full border border-zinc-700/40"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute inset-[33%] rounded-full border border-zinc-700/30"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+            />
+            <div className="pointer-events-none absolute inset-[46%] rounded-full border border-cyan-300/20 bg-cyan-200/5 shadow-[0_0_90px_-24px_rgba(34,211,238,0.5)]" />
+            {categories.map((category, index) => (
+              <motion.button
+                key={category.id}
+                type="button"
+                onClick={() => setActiveCategoryId(category.id)}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 + index * 0.06 }}
+                whileHover={{ y: -5, scale: 1.04 }}
+                whileTap={{ scale: 0.98 }}
+                className={`group absolute h-44 w-44 rounded-full border bg-gradient-to-br p-4 text-center shadow-[0_28px_70px_-28px_rgba(0,0,0,0.95)] backdrop-blur-md transition-all duration-500 ${
+                  category.toneClass
+                } ${
+                  category.desktopPosition
+                } ${
+                  activeCategoryId === category.id
+                    ? "ring-2 ring-white/40 shadow-[0_0_70px_-25px_rgba(125,211,252,0.8)]"
+                    : ""
+                }`}
+              >
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_18%,rgba(255,255,255,0.36),transparent_40%)] opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1),transparent_48%)]" />
+                <span className="block text-sm font-semibold tracking-wide text-zinc-100">
+                  {category.title}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+
+          <div
+            className={`grid grid-cols-1 gap-3 px-2 transition-all duration-500 md:hidden ${
+              activeCategory ? "opacity-40 blur-[1px]" : "opacity-100"
+            }`}
           >
-            Documentation
-          </a>
-        </div>
+            {categories.map((category) => (
+              <motion.button
+                key={category.id}
+                type="button"
+                onClick={() => setActiveCategoryId(category.id)}
+                whileTap={{ scale: 0.98 }}
+                className={`rounded-full border bg-gradient-to-br px-6 py-4 text-center shadow-[0_18px_40px_-28px_rgba(0,0,0,0.95)] transition-all duration-300 ${category.toneClass}`}
+              >
+                <span className="block text-sm font-semibold text-zinc-100">
+                  {category.title}
+                </span>
+              </motion.button>
+            ))}
+          </div>
+
+          <AnimatePresence>
+            {activeCategory && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="pointer-events-none absolute inset-0 flex items-center justify-center p-2 sm:p-4"
+              >
+                <motion.article
+                  initial={{ opacity: 0, scale: 0.92, y: 12 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 8 }}
+                  transition={{ duration: 0.32, ease: "easeOut" }}
+                  className="pointer-events-auto relative w-full max-w-2xl overflow-hidden rounded-[2.2rem] border border-zinc-600/70 bg-zinc-900/90 p-6 shadow-[0_40px_110px_-40px_rgba(14,116,144,0.6)] backdrop-blur-xl sm:p-8"
+                >
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(125,211,252,0.18),transparent_30%),radial-gradient(circle_at_88%_100%,rgba(192,132,252,0.16),transparent_28%)]" />
+                  <p className="text-[11px] tracking-[0.3em] text-zinc-400 uppercase">
+                    {activeCategory.preview}
+                  </p>
+                  <h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
+                    {activeCategory.title}
+                  </h2>
+                  {activeCategory.id === "countries" ? (
+                    <div className="mt-5">
+                      <WorldMap />
+                      <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-300 sm:text-base">
+                        <p>
+                          <span className="font-medium text-zinc-100">
+                            Top countries:
+                          </span>{" "}
+                          Japan, Brazil, Cuba
+                        </p>
+                        <p className="mt-2">
+                          <span className="font-medium text-zinc-100">
+                            Top cities:
+                          </span>{" "}
+                          Medellin (Colombia), Tokyo (Japan), Prague (Czech
+                          Republic)
+                        </p>
+                      </div>
+                    </div>
+                  ) : activeCategory.id === "hobbies" ? (
+                    <Hobbies />
+                  ) : activeCategory.id === "work" ? (
+                    <WorkExperience />
+                  ) : activeCategory.id === "about" ? (
+                    <AboutMe />
+                  ) : (
+                    <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-300 sm:text-base">
+                      {activeCategory.content}
+                    </p>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategoryId(null)}
+                    className="mt-7 rounded-full border border-zinc-500/80 bg-zinc-900/70 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-zinc-300 hover:bg-zinc-800"
+                  >
+                    Back to circles
+                  </button>
+                </motion.article>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
       </main>
     </div>
   );
