@@ -1,4 +1,5 @@
 # Personal Portfolio Website
+<img width="1720" height="1335" alt="image" src="https://github.com/user-attachments/assets/4132427f-bfad-441a-b0a3-e4fee331113b" />
 
 This is my personal portfolio website, built to present who I am, my work experience, hobbies, and places I have traveled to.
 
