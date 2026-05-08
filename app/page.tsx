@@ -5,6 +5,7 @@ import WorldMap from "./components/WorldMap";
 import Hobbies from "./components/Hobbies";
 import WorkExperience from "./components/WorkExperience";
 import AboutMe from "./components/AboutMe";
+import Projects from "./components/Projects";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 
@@ -24,7 +25,7 @@ const categories: CircleCategory[] = [
     preview: "Places and memories",
     content:
       "Placeholder: Add a short travel story, favorite destinations, and a few memorable moments from different countries.",
-    desktopPosition: "top-[3%] left-1/2 -translate-x-1/2",
+    desktopPosition: "top-[5%] left-1/2 -translate-x-1/2",
     toneClass:
       "from-sky-500/30 via-indigo-500/10 to-slate-950 border-sky-300/30 hover:border-sky-200/70",
   },
@@ -34,7 +35,7 @@ const categories: CircleCategory[] = [
     preview: "What I enjoy outside work",
     content:
       "Placeholder: Share your hobbies here, such as fitness, gaming, photography, music, reading, or side coding projects.",
-    desktopPosition: "top-[26%] right-[2%]",
+    desktopPosition: "top-[28%] right-[8%]",
     toneClass:
       "from-fuchsia-500/30 via-violet-500/10 to-slate-950 border-fuchsia-300/30 hover:border-fuchsia-200/70",
   },
@@ -43,8 +44,8 @@ const categories: CircleCategory[] = [
     title: "Volunteering",
     preview: "Community and impact",
     content:
-      "Placeholder: Highlight causes you support, volunteer roles, and what meaningful contribution looks like for you.",
-    desktopPosition: "bottom-[1%] right-[19%]",
+      "• Beit Dafna Residence – volunteering with adults with intellectual disabilities.\n• Mentor, Perach, Bat Yam - Mentored 4 elementary students in English and Math, boosting confidence and self-esteem.\n• Mentor, Children of Incarcerated Parent, Tel Aviv – Mentored a child with personal and social challenges, providing support and guidance for personal growth.",
+    desktopPosition: "bottom-[28%] right-[8%]",
     toneClass:
       "from-emerald-500/30 via-cyan-500/10 to-slate-950 border-emerald-300/30 hover:border-emerald-200/70",
   },
@@ -54,7 +55,7 @@ const categories: CircleCategory[] = [
     preview: "Quick personal intro",
     content:
       "From Moshav Yashresh to the energy of Tel Aviv, my journey has always been about growth, challenge, and purpose. Today, I am in my third year of Computer Science at The Academic College of Tel Aviv-Yaffo, where I get to do what I love most: build, solve, and keep learning every day. My passion for tech comes from the same mindset that shaped me long before code. Between 2018 and 2021, I served in the IDF Search and Rescue combat unit, where I led and trained a squad in high-pressure conditions, managed logistics operations worth over 4 million NIS, and contributed to a leadership forum focused on optimization and logistics. I also received the highest sociometric score for commander potential during training. That experience taught me to stay sharp under pressure, lead with responsibility, and always look for smarter ways to improve systems. Now, I bring that same discipline and curiosity into tech, turning complex problems into clear, practical solutions.",
-    desktopPosition: "bottom-[1%] left-[19%]",
+    desktopPosition: "bottom-[28%] left-[8%]",
     toneClass:
       "from-violet-500/30 via-indigo-500/10 to-slate-950 border-violet-300/30 hover:border-violet-200/70",
   },
@@ -64,9 +65,18 @@ const categories: CircleCategory[] = [
     preview: "Professional journey",
     content:
       "Placeholder: Add your role details, responsibilities, and what you've learned across your work experience.",
-    desktopPosition: "top-[26%] left-[2%]",
+    desktopPosition: "top-[28%] left-[8%]",
     toneClass:
       "from-amber-500/30 via-orange-500/10 to-slate-950 border-amber-300/30 hover:border-amber-200/70",
+  },
+  {
+    id: "projects",
+    title: "Projects",
+    preview: "What I've built",
+    content: "",
+    desktopPosition: "bottom-[5%] left-1/2 -translate-x-1/2",
+    toneClass:
+      "from-cyan-500/30 via-blue-500/10 to-slate-950 border-cyan-300/30 hover:border-cyan-200/70",
   },
 ];
 
@@ -143,23 +153,23 @@ export default function Home() {
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <main className="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center px-6 py-10">
+      <main className="relative mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col items-center justify-center overflow-hidden px-4 py-4 sm:px-6 md:h-screen md:py-3">
         <motion.header
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8 text-center sm:mb-10"
+          className="mb-4 text-center sm:mb-5"
         >
-          <h1 className="mt-1 bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-4xl font-semibold tracking-tight text-transparent sm:text-6xl">
+          <h1 className="mt-1 bg-gradient-to-b from-white via-zinc-100 to-zinc-400 bg-clip-text text-3xl font-semibold tracking-tight text-transparent sm:text-5xl">
             Gal Libal
           </h1>
-          <div className="mx-auto mt-4 h-px w-36 bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+          <div className="mx-auto mt-3 h-px w-32 bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             <a
               href="https://github.com/gallibal"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-3 py-1.5 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70"
             >
               GitHub
             </a>
@@ -167,42 +177,42 @@ export default function Home() {
               href="https://www.linkedin.com/in/gal-libal/"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-3 py-1.5 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70"
             >
               LinkedIn
             </a>
             <a
               href="mailto:gallibal18@gmail.com"
-              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-4 py-2 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70 sm:text-sm"
+              className="rounded-full border border-zinc-600/80 bg-zinc-900/60 px-3 py-1.5 text-xs font-medium text-zinc-200 backdrop-blur transition hover:-translate-y-0.5 hover:border-zinc-300 hover:bg-zinc-800/70"
             >
               Email
             </a>
           </div>
         </motion.header>
 
-        <section className="relative w-full max-w-5xl">
+        <section className="relative flex w-full flex-1 items-center justify-center min-h-0">
           <div
-            className={`mx-auto hidden aspect-square w-full max-w-[700px] transition-all duration-500 md:block ${
+            className={`relative mx-auto hidden aspect-square w-full max-w-[min(92vw,620px)] transition-all duration-500 md:block ${
               activeCategory ? "scale-[0.97] opacity-40 blur-[3px]" : "scale-100 opacity-100"
             }`}
           >
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute inset-[20%] rounded-full border border-zinc-700/40"
+              className="pointer-events-none absolute inset-[22%] rounded-full border border-zinc-700/40"
               animate={{ rotate: 360 }}
               transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
             />
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute inset-[33%] rounded-full border border-zinc-700/30"
+              className="pointer-events-none absolute inset-[35%] rounded-full border border-zinc-700/30"
               animate={{ rotate: -360 }}
               transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
             />
-            <div className="pointer-events-none absolute inset-[46%] rounded-full border border-cyan-300/20 bg-cyan-200/5 shadow-[0_0_90px_-24px_rgba(34,211,238,0.5)]" />
+            <div className="pointer-events-none absolute inset-[48%] rounded-full border border-cyan-300/20 bg-cyan-200/5 shadow-[0_0_90px_-24px_rgba(34,211,238,0.5)]" />
             <motion.button
               type="button"
               onClick={() => setIsMessageOpen(true)}
-              className="absolute left-1/2 top-1/2 z-20 text-4xl drop-shadow-[0_0_14px_rgba(255,255,255,0.45)] transition hover:scale-110"
+              className="absolute left-1/2 top-1/2 z-20 text-3xl drop-shadow-[0_0_14px_rgba(255,255,255,0.45)] transition hover:scale-110"
               animate={{
                 x: [0, 120, 0, -120, 0],
                 y: [-120, 0, 120, 0, -120],
@@ -227,7 +237,7 @@ export default function Home() {
                 transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 + index * 0.06 }}
                 whileHover={{ y: -5, scale: 1.04 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group absolute h-44 w-44 rounded-full border bg-gradient-to-br p-4 text-center shadow-[0_28px_70px_-28px_rgba(0,0,0,0.95)] backdrop-blur-md transition-all duration-500 ${
+                className={`group absolute h-[clamp(8rem,9vw,9.25rem)] w-[clamp(8rem,9vw,9.25rem)] rounded-full border bg-gradient-to-br p-3 text-center shadow-[0_28px_70px_-28px_rgba(0,0,0,0.95)] backdrop-blur-md transition-all duration-500 ${
                   category.toneClass
                 } ${
                   category.desktopPosition
@@ -239,7 +249,7 @@ export default function Home() {
               >
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_18%,rgba(255,255,255,0.36),transparent_40%)] opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
                 <span className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1),transparent_48%)]" />
-                <span className="block text-sm font-semibold tracking-wide text-zinc-100">
+                <span className="block text-xs font-semibold tracking-wide text-zinc-100 sm:text-sm">
                   {category.title}
                 </span>
               </motion.button>
@@ -272,59 +282,79 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="pointer-events-none absolute inset-0 flex items-center justify-center p-2 sm:p-4"
+                className="pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 backdrop-blur-sm sm:p-4 md:p-6"
+                onClick={() => setActiveCategoryId(null)}
               >
                 <motion.article
                   initial={{ opacity: 0, scale: 0.92, y: 12 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: 8 }}
                   transition={{ duration: 0.32, ease: "easeOut" }}
-                  className="pointer-events-auto relative w-full max-w-2xl overflow-hidden rounded-[2.2rem] border border-zinc-600/70 bg-zinc-900/90 p-6 shadow-[0_40px_110px_-40px_rgba(14,116,144,0.6)] backdrop-blur-xl sm:p-8"
+                  onClick={(event) => event.stopPropagation()}
+                  className="pointer-events-auto relative flex max-h-[calc(100vh-60px)] w-full max-w-2xl flex-col overflow-hidden rounded-[2.2rem] border border-zinc-600/70 bg-zinc-900/90 shadow-[0_40px_110px_-40px_rgba(14,116,144,0.6)] backdrop-blur-xl"
                 >
                   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_0%,rgba(125,211,252,0.18),transparent_30%),radial-gradient(circle_at_88%_100%,rgba(192,132,252,0.16),transparent_28%)]" />
-                  <p className="text-[11px] tracking-[0.3em] text-zinc-400 uppercase">
-                    {activeCategory.preview}
-                  </p>
-                  <h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
-                    {activeCategory.title}
-                  </h2>
-                  {activeCategory.id === "countries" ? (
-                    <div className="mt-5">
-                      <WorldMap />
-                      <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-300 sm:text-base">
-                        <p>
-                          <span className="font-medium text-zinc-100">
-                            Top countries:
-                          </span>{" "}
-                          Japan, Brazil, Cuba
+                  <div className="relative flex min-h-0 flex-1 flex-col">
+                    <div className="overflow-y-auto px-5 py-5 sm:px-6 sm:py-6">
+                      <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-400">
+                        {activeCategory.preview}
+                      </p>
+                      <h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
+                        {activeCategory.title}
+                      </h2>
+                      {activeCategory.id === "countries" ? (
+                        <div className="mt-4">
+                          <WorldMap />
+                          <div className="mt-3 rounded-xl border border-zinc-800 bg-zinc-900/60 p-3 text-sm text-zinc-300 sm:p-4 sm:text-base">
+                            <p>
+                              <span className="font-medium text-zinc-100">
+                                Top countries:
+                              </span>{" "}
+                              Japan, Brazil, Cuba
+                            </p>
+                            <p className="mt-2">
+                              <span className="font-medium text-zinc-100">
+                                Top cities:
+                              </span>{" "}
+                              Medellin (Colombia), Tokyo (Japan), Prague (Czech
+                              Republic)
+                            </p>
+                          </div>
+                        </div>
+                      ) : activeCategory.id === "hobbies" ? (
+                        <Hobbies />
+                      ) : activeCategory.id === "work" ? (
+                        <WorkExperience />
+                      ) : activeCategory.id === "about" ? (
+                        <AboutMe />
+                      ) : activeCategory.id === "projects" ? (
+                        <Projects />
+                      ) : activeCategory.id === "volunteering" ? (
+                        <ul className="mt-4 max-w-xl space-y-3 text-sm leading-6 text-zinc-300 sm:text-base">
+                          {activeCategory.content.split("\n").map((item, index) => (
+                            <li key={index} className="flex gap-3">
+                              <span className="flex-shrink-0 mt-0.5">•</span>
+                              <span>{item.replace(/^• /, "")}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="mt-4 max-w-xl text-sm leading-7 text-zinc-300 sm:text-base">
+                          {activeCategory.content}
                         </p>
-                        <p className="mt-2">
-                          <span className="font-medium text-zinc-100">
-                            Top cities:
-                          </span>{" "}
-                          Medellin (Colombia), Tokyo (Japan), Prague (Czech
-                          Republic)
-                        </p>
-                      </div>
+                      )}
                     </div>
-                  ) : activeCategory.id === "hobbies" ? (
-                    <Hobbies />
-                  ) : activeCategory.id === "work" ? (
-                    <WorkExperience />
-                  ) : activeCategory.id === "about" ? (
-                    <AboutMe />
-                  ) : (
-                    <p className="mt-5 max-w-xl text-sm leading-7 text-zinc-300 sm:text-base">
-                      {activeCategory.content}
-                    </p>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => setActiveCategoryId(null)}
-                    className="mt-7 rounded-full border border-zinc-500/80 bg-zinc-900/70 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-zinc-300 hover:bg-zinc-800"
-                  >
-                    Back to circles
-                  </button>
+
+                    <div className="shrink-0 border-t border-zinc-700/50 bg-gradient-to-t from-zinc-900/95 to-zinc-900/80 p-4 backdrop-blur-sm sm:p-5">
+                      <button
+                        type="button"
+                        onClick={() => setActiveCategoryId(null)}
+                        className="w-full rounded-full border border-zinc-500/80 bg-zinc-900/70 px-5 py-2.5 text-sm font-medium text-zinc-100 transition hover:border-zinc-300 hover:bg-zinc-800"
+                      >
+                        Back to circles
+                      </button>
+                    </div>
+                  </div>
                 </motion.article>
               </motion.div>
             )}
