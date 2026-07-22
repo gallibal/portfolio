@@ -3,13 +3,13 @@
 const TIMELINE = [
   {
     year: "2025 – Present",
-    role: "NOC Specialist",
+    role: "NOC Engineer",
     workplace: "Rapyd",
     description: [
-      "Monitor production systems, alerts, and operational dashboards to ensure platform stability.",
-      "Respond to incidents in real time, investigate issues, and escalate to the relevant teams when needed.",
-      "Support payment operations and help maintain reliable service availability.",
-      "Work in a fast-paced fintech environment with cross-functional teams.",
+      "Monitor production systems and respond to real-time production incidents and alerts.",
+      "Investigate issues using APIs, logs, monitoring tools, and LLM-based tools for faster technical analysis.",
+      "Collaborate with engineering teams to escalate and resolve complex technical problems.",
+      "Designed and built an internal status page giving the team real-time visibility into production systems, using Claude Code and Antigravity.",
     ],
     isCurrent: true,
   },
@@ -19,7 +19,7 @@ export default function WorkExperience() {
   return (
     <div className="mt-5">
       <p className="text-sm text-zinc-400">
-        Current role in fintech operations
+        Current role in fintech production operations
       </p>
 
       <div className="relative mt-6 pl-6 sm:pl-8">

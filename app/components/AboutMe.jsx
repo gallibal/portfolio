@@ -12,11 +12,11 @@ export default function AboutMe() {
       </p>
 
       <p>
-        Today, I am in my third year of Computer Science at{" "}
+        I recently graduated with a B.Sc. in Computer Science from{" "}
         <span className="bg-gradient-to-r from-indigo-300 to-emerald-300 bg-clip-text font-semibold text-transparent">
           The Academic College of Tel Aviv-Yaffo
         </span>
-        , where I get to do what I love most: build, solve, and keep learning
+        , where I got to do what I love most: build, solve, and keep learning
         every day.
       </p>
 
