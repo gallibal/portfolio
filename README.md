@@ -1,38 +1,25 @@
 # Personal Portfolio Website
-<img width="1720" height="1335" alt="image" src="https://github.com/user-attachments/assets/4132427f-bfad-441a-b0a3-e4fee331113b" />
 
-This is my personal portfolio website, built to present who I am, my work experience, hobbies, and places I have traveled to.
+![Homepage](public/HomePage_Image.png)
 
-The website was created as part of my personal GitHub portfolio and is designed to showcase my background, interests, and technical abilities in a clean and modern way.
+My personal portfolio — a single-page site presenting who I am, my work experience, education, skills, and projects, built to showcase my background and technical abilities in a clean, modern way.
 
 ## Features
 
-- Personal introduction section
-- Work experience section
-- Hobbies section
-- Travel section with trips and destinations
-- Interactive world map
-- Responsive design for different screen sizes
+- Hero, About, Experience, Education, Skills, Projects, Volunteering, and Contact sections
+- Interactive world map of countries I've visited, plus a hobbies section
+- Sticky navigation with scroll-spy and a mobile menu
+- Fully responsive, with smooth scroll-triggered animations
+
+<p>
+  <img src="public/Skills_Image.png" width="49%" alt="Skills section" />
+  <img src="public/BeyondWork_Image.png" width="49%" alt="Beyond Work section with interactive world map" />
+</p>
 
 ## Technologies Used
 
-- Next.js
-- React
-- TypeScript
-- JavaScript
-- CSS
-- Git & GitHub
-
-## Project Structure
-
-```bash
-app/
-├── components/
-│   ├── AboutMe.jsx
-│   ├── Hobbies.jsx
-│   ├── WorkExperience.jsx
-│   └── WorldMap.jsx
-├── travels/
-│   └── trips/
-│       └── page.tsx
-└── page.tsx
+- Next.js (App Router, static export)
+- React & TypeScript
+- Tailwind CSS
+- Framer Motion
+- D3.js / TopoJSON (world map)
