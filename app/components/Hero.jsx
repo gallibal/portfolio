@@ -7,7 +7,11 @@ import { GitHubIcon, LinkedInIcon, MailIcon, ArrowRightIcon } from "./ui/Icons";
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/gallibal", Icon: GitHubIcon },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/gal-libal/", Icon: LinkedInIcon },
-  { label: "Email", href: "mailto:gallibal18@gmail.com", Icon: MailIcon },
+  {
+    label: "Email",
+    href: "mailto:gallibal18@gmail.com?subject=Contact%20from%20portfolio%20website",
+    Icon: MailIcon,
+  },
 ];
 
 export default function Hero() {
@@ -96,7 +100,7 @@ export default function Hero() {
               href={href}
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              aria-label={label}
+              aria-label={label === "Email" ? "Send me an email" : label}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700/70 text-zinc-300 transition hover:-translate-y-0.5 hover:border-zinc-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
             >
               <Icon className="h-[18px] w-[18px]" />

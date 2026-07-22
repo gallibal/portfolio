@@ -15,26 +15,35 @@ import Hobbies from "./components/Hobbies";
 import WorldMap from "./components/WorldMap";
 import Contact from "./components/Contact";
 
+const RUNAWAY_MARGIN = 20;
+const NAV_HEIGHT = 88;
+// Keep in sync with `basePath` in next.config.ts — public/ assets referenced
+// directly in code (not via next/image) aren't auto-prefixed by Next.js.
+const BASE_PATH = "/portfolio";
+
 export default function Home() {
   const [runawayPos, setRunawayPos] = useState({ left: 16, top: 0 });
   const catAudioRef = useRef<HTMLAudioElement | null>(null);
+  const runawayRef = useRef<HTMLButtonElement | null>(null);
 
   const moveRunawayButton = () => {
-    const buttonWidth = 180;
-    const buttonHeight = 48;
-    const margin = 16;
-    const maxLeft = Math.max(margin, window.innerWidth - buttonWidth - margin);
-    const maxTop = Math.max(margin, window.innerHeight - buttonHeight - margin);
-    const left = Math.floor(Math.random() * (maxLeft - margin + 1)) + margin;
-    const top = Math.floor(Math.random() * (maxTop - margin + 1)) + margin;
+    const button = runawayRef.current;
+    const width = button?.offsetWidth ?? 160;
+    const height = button?.offsetHeight ?? 44;
+
+    const minLeft = RUNAWAY_MARGIN;
+    const maxLeft = Math.max(minLeft, window.innerWidth - width - RUNAWAY_MARGIN);
+    const minTop = NAV_HEIGHT;
+    const maxTop = Math.max(minTop, window.innerHeight - height - RUNAWAY_MARGIN);
+
+    const left = Math.floor(Math.random() * (maxLeft - minLeft + 1)) + minLeft;
+    const top = Math.floor(Math.random() * (maxTop - minTop + 1)) + minTop;
     setRunawayPos({ left, top });
   };
 
   const playCatSound = () => {
     if (!catAudioRef.current) {
-      catAudioRef.current = new Audio(
-        "https://upload.wikimedia.org/wikipedia/commons/2/21/Cat_Meow_2.ogg"
-      );
+      catAudioRef.current = new Audio(`${BASE_PATH}/audio/cat-meow.mp3`);
       catAudioRef.current.volume = 1;
     }
 
@@ -43,7 +52,7 @@ export default function Home() {
     audio.volume = 1;
 
     audio.play().catch(() => {
-      // Fallback if remote audio format/source isn't supported in this browser.
+      // Fallback if the local audio file is missing/unsupported in this browser.
       const utterance = new SpeechSynthesisUtterance("Meow");
       utterance.volume = 1;
       utterance.rate = 0.95;
@@ -120,24 +129,29 @@ export default function Home() {
           <p className="text-sm text-zinc-500">
             &copy; {new Date().getFullYear()} Gal Libal. Built with Next.js &amp; Tailwind CSS.
           </p>
-          <div className="flex items-center gap-2 text-xs text-zinc-600">
-            <button
-              type="button"
-              onClick={playCatSound}
-              className="rounded-full px-2 py-1 transition hover:text-zinc-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
-              aria-label="A cow that plays a cat sound"
-            >
-              🐄 don&apos;t press this
-            </button>
-          </div>
         </div>
       </footer>
 
       <motion.button
         type="button"
+        onClick={playCatSound}
+        whileHover={{ scale: 1.12, rotate: -6 }}
+        whileTap={{ scale: 0.9, rotate: 8 }}
+        transition={{ type: "spring", stiffness: 300, damping: 12 }}
+        title="Cow button that plays a cat sound"
+        aria-label="Cow button that plays a cat sound"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-zinc-700/70 bg-zinc-900/80 text-2xl shadow-[0_10px_30px_-12px_rgba(0,0,0,0.8)] backdrop-blur-md transition-colors hover:border-zinc-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
+      >
+        🐄
+      </motion.button>
+
+      <motion.button
+        ref={runawayRef}
+        type="button"
         onMouseEnter={moveRunawayButton}
         onMouseDown={moveRunawayButton}
         onFocus={moveRunawayButton}
+        onTouchStart={moveRunawayButton}
         animate={{ left: runawayPos.left, top: runawayPos.top }}
         transition={{ type: "spring", stiffness: 420, damping: 20 }}
         initial={{ left: 16, top: "82vh" }}

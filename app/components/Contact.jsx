@@ -7,7 +7,11 @@ import { GitHubIcon, LinkedInIcon, MailIcon } from "./ui/Icons";
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/gallibal", Icon: GitHubIcon },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/gal-libal/", Icon: LinkedInIcon },
-  { label: "Email", href: "mailto:gallibal18@gmail.com", Icon: MailIcon },
+  {
+    label: "Email",
+    href: "mailto:gallibal18@gmail.com?subject=Contact%20from%20portfolio%20website",
+    Icon: MailIcon,
+  },
 ];
 
 export default function Contact() {
@@ -37,6 +41,7 @@ export default function Contact() {
               href={href}
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              aria-label={label === "Email" ? "Send me an email" : label}
               className="flex items-center gap-2 rounded-full border border-zinc-700/70 bg-zinc-900/60 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:-translate-y-0.5 hover:border-zinc-400 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/70"
             >
               <Icon className="h-4 w-4" />

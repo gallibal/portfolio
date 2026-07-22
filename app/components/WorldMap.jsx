@@ -107,6 +107,7 @@ const VISITED = new Set([
   "818", // Egypt
   "784", // UAE
   "702", // Singapore
+  "196", // Cyprus
   "392", // Japan
   "704", // Vietnam
   "356", // India
