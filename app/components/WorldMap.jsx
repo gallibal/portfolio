@@ -181,9 +181,9 @@ export default function WorldMap() {
       >
         <rect width="1000" height="520" fill="#020617" />
 
-        {countries.map((country) => (
+        {countries.map((country, index) => (
           <path
-            key={country.id}
+            key={`${country.isoCode}-${index}`}
             d={path(country) ?? ""}
             fill={
               hoveredCountry?.id === country.id

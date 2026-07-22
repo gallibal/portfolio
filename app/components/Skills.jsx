@@ -1,5 +1,7 @@
 "use client";
 
+import Badge from "./ui/Badge";
+
 const GROUPS = [
   {
     title: "Languages",
@@ -17,20 +19,17 @@ const GROUPS = [
 
 export default function Skills() {
   return (
-    <div className="mt-5 space-y-5">
+    <div className="grid gap-6 sm:grid-cols-3">
       {GROUPS.map((group) => (
-        <div key={group.title}>
+        <div key={group.title} className="rounded-2xl border border-zinc-700/70 bg-zinc-900/60 p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300/80">
             {group.title}
           </p>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {group.skills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3.5 py-1.5 text-xs font-medium text-amber-100 sm:text-sm"
-              >
+              <Badge key={skill} className="border-amber-500/30 bg-amber-500/10 text-amber-100">
                 {skill}
-              </span>
+              </Badge>
             ))}
           </div>
         </div>
